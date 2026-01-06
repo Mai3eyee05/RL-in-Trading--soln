@@ -1,2 +1,10 @@
 # RL-in-Trading--soln
-RL in Trading 
+Project Summary till midterm:
+I explored the fundamental Reinforcement Learning dilemma: The Exploration-Exploitation Trade-off. Using a 10-armed bandit simulation, I implemented and compared three distinct strategies to maximize cumulative rewards in an environment where action values are noisy and initially unknown.
+The Greedy Algorithm represents pure exploitation. It always selects the action with the highest current value estimate Q1 .
+What I observed: While it captures rewards quickly at the start, it frequently gets stuck on suboptimal levers. Because it never explores, a single "unlucky" low reward from the best lever can cause the agent to ignore that lever forever, leading to a lower cumulative average reward in the long run.
+The epsilon Greedy Algorithm introduces a fixed probability of exploration. Most of the time it acts greedily, but with probability epsilon, it selects an action at random.
+What I observed: This strategy significantly outperformed the purely greedy approach. By "forcing" the agent to try different levers, it eventually discovered the true optimal arm despite the noise. My cumulative average reward plot showed that while it learns slower initially, it achieves a much higher steady-state performance.
+Optimistic Initial Values: Instead of changing the selection logic, I modified the initialization of the value estimates. By setting the starting Q1 values much higher than any possible reward (e.g., setting them to +5 when the mean is 0), the agent starts with disappointment.
+What I observed: Every time the agent pulls a lever, the reward is lower than its optimistic estimate, causing the estimate to drop. This naturally forces the agent to try every single lever multiple times before settling on the best one.
+Conclusion: This is a clever way to encourage exploration early on without needing a random epsilon factor. It results in very high performance in stationary problems, as seen in the cumulative average reward plot.
